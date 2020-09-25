@@ -13,8 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::prefix('mieru/nc')->group(function(){
+    Route::namespace('Mieru\Ncs')->group(function(){
+
+        Route::get('/products/{product_no}', 'NcsController@show')->name('mieru.ncs.show');
+        Route::get('', 'NcsController@index')->name('mieru.ncs.index');
+    });
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
