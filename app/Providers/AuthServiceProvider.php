@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Team;
+use App\Policies\TeamPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Team::class => TeamPolicy::class,
     ];
 
     /**
@@ -25,19 +26,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //管理者のみ許可
-        Gate::define('system-only', function ($user) {
-            return ($user->privilege == 1);
-        });
-
-        //幹部以上(幹部 & 管理者)に許可
-        Gate::define('admin-higher', function ($user) {
-            return ($user->privilege > 0 && $user->privilege <= 5);
-        });
-
-        //一般ユーザー以上(つまり全権限)に許可
-        Gate::define('user-higher', function ($user) {
-             return ($user->privilege > 0 && $user->privilege <= 10);
-        });
+        //
     }
 }

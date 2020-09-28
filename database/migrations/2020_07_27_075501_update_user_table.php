@@ -17,7 +17,6 @@ class UpdateUserTable extends Migration
             $table->integer('employee_no');  // 権限
             $table->string('fullname');// 氏名カラムを追加
             $table->string('phone')->nullable();  // 電話番号カラムを追加
-            $table->integer('privilege');  // 権限
 
             //プライマリキー設定
             $table->unique(['employee_no']);
@@ -35,7 +34,6 @@ class UpdateUserTable extends Migration
             $table->dropColumn('employee_no');
             $table->dropColumn('fullname');
             $table->dropColumn('phone');
-            $table->dropColumn('privilege');
         });
     }
 }
